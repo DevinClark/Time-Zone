@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html manifest="time.manifest" lang="en">
+<head>
+	<meta charset="utf-8" />				
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"  />
+	<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+
+	<link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+	<link rel="apple-touch-icon-precomposed" href="iOSicon.png"/>
+	<title>TimeZoner</title>
+	<link rel="stylesheet" type="text/css" href="style.css" />
+	
+	<!--[if lt IE 7]><link rel="stylesheet" href="css/ie.css" type="text/css" /><![endif]-->
+	<!--[if IE 6]>
+	<script src="js/DD_belatedPNG.js"></script>
+	<script>DD_belatedPNG.fix('#container, .fix');</script>
+	<![endif]-->
+</head>
+
+<body>
+
+<div id="container">
+	<div id="header">
+		<h1>Time Zone Converter</h1>
+	</div>
+	
+	<div id="mainContent">
+		<form id="time" name="time">
+			<input type="number" min="1" max="12" step="1" maxlength="5" name="theTime" placeholder="Not CST Time" id="theTime" autocomplete="off">
+			<select name="places" id="places">
+				<option value="PT" selected="selected">Pacific</option>
+				<option value="ET">Eastern</option>
+				<option value="MT">Mountain</option>
+			</select>
+			<input type="submit" value="Go" id="submit">
+		</form>
+		<br />
+		<span id="timeResult">Central Time <em></em></span>
+	</div>
+
+
+</div><!-- end container -->
+
+<script src="jquery.min.js"></script>
+<script src="jquery.forms.js"></script>
+
+<script>
+$("#time").ajaxForm();
+$("#time").submit(function() {
+	var theTimeNumber = $("#theTime").val(),
+		theResult,
+		theTimeDiff;
+		
+	function timeConvert(theTimeDiff) {
+		theResult = theTimeNumber*1 + theTimeDiff*1; // *1 converts to int 
+		$("#timeResult").fadeIn();		
+		$("#timeResult em").text(theResult + ":00");
+	}
+
+	if($("#theTime").val()) {
+		switch($("#places").val()) {
+			case "PT":
+				timeConvert(2);
+			break;
+			case "ET":
+				timeConvert(-1);
+			break;
+			case "MT":
+				timeConvert(1);
+			break;
+			default:
+		
+		}
+	}
+});/*form submit*/
+
+	
+</script>
+
+</body>
+</html>
