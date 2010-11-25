@@ -1,3 +1,4 @@
+<?php include('form.php'); ?>
 <!DOCTYPE html>
 <html manifest="time.manifest" lang="en">
 <head>
